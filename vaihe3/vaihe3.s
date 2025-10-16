@@ -9,9 +9,25 @@
 
 main:
     jal ra, tavupituus
-    li a7, 10
+    
+    # Print newline between results
+    li a7, 64
+    li a0, 1
+    la a1, newline
+    li a2, 1
+    ecall
+    
+    jal ra, sanapituus
+    
+    # Print final newline
+    li a7, 64
+    li a0, 1
+    la a1, newline
+    li a2, 1
     ecall
 
+    li a7, 10
+    ecall
 
 tavupituus:
     la x9, tavut
@@ -41,14 +57,10 @@ done_tavu:
     mv a0, x20
     li a7, 1
     ecall
-    li a7, 64
-    li a0, 1
-    la a1, newline
-    li a2, 1
-    ecall
-    j sanapituus
+    ret                  
 
 done_sana:
-	mv a0, x20
+    mv a0, x20
     li a7, 1
     ecall
+    ret                  
