@@ -2,32 +2,25 @@
     tavut: .byte 1,2,3,4,5,6,7,8,9,0
     .align 2
     sanat: .word 1,2,3,4,5,6,7,8,9,10,0
-    newline: .asciz "\n" 
+
 
 .text
 .globl main
 
 main:
     jal ra, tavupituus
+	
+    #rivin vaihto
+	li a0, 10
+	li a7, 11
+	ecall
     
-    # Print newline between results
-    li a7, 64
-    li a0, 1
-    la a1, newline
-    li a2, 1
-    ecall
+    jal ra, sanapituus 
     
-    jal ra, sanapituus
-    
-    # Print final newline
-    li a7, 64
-    li a0, 1
-    la a1, newline
-    li a2, 1
-    ecall
-
     li a7, 10
     ecall
+
+
 
 tavupituus:
     la x9, tavut
@@ -57,10 +50,14 @@ done_tavu:
     mv a0, x20
     li a7, 1
     ecall
-    ret                  
+    ret
 
 done_sana:
-    mv a0, x20
+	mv a0, x20
     li a7, 1
     ecall
-    ret                  
+	ret
+
+
+
+
